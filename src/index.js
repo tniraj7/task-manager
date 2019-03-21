@@ -32,6 +32,50 @@ app.post("/tasks", (req, res) => {
     });
 });
 
+app.get("/users", (req, res) => {
+  User.find({}).then((users) => {
+    res.send(users)
+  }).catch((error) => {
+    res.status(500).send()
+  })
+})
+
+app.get("/users/:id", (req, res) => {
+  const _id = req.params.id
+
+  User.findById(_id).then((user) => {
+    if (!user) {
+      return res.status(404).send()
+    }
+    res.send(user)
+
+  }).catch((error) => {
+    res.status(500).send()
+  })
+
+})
+
+app.get("/tasks", (req, res) => {
+  Task.find({}).then((task) => {
+    res.send(task)
+  }).catch((error) => {
+    res.status(500).send()
+  })
+})
+
+app.get("/tasks/:id", (req, res) => {
+  const _id = req.params.id
+
+  Task.findById(_id).then((task) => {
+    if (!task) {
+      return res.status(404).send()
+    }
+    res.send(task)
+  }).catch((error) => {
+    res.status(500).send()
+  })
+})
+
 app.listen(port, () => {
   console.log("Server is listening on port " + port);
 });
