@@ -42,7 +42,7 @@ app.get("/users", (req, res) => {
 
 app.get("/users/:id", (req, res) => {
   const _id = req.params.id
-  
+
   User.findById(_id).then((user) => {
     if (!user) {
       res.status(404).send()
@@ -53,6 +53,14 @@ app.get("/users/:id", (req, res) => {
     res.status(500).send()
   })
 
+})
+
+app.get("/tasks", (req, res) => {
+  Task.find({}).then((task) => {
+    res.send(task)
+  }).catch((error) => {
+    res.status(500).send()
+  })
 })
 
 app.listen(port, () => {
