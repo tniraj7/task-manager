@@ -2,10 +2,6 @@ const express = require('express')
 const router = new express.Router()
 const User = require('../models/user')
 
-router.get('/test', (req, res) => {
-    res.send('From my new file')
-})
-
 router.post("/users", async (req, res) => {
     const user = new User(req.body);
     try {
