@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 const userSchema = mongoose.Schema({
     name: { type: String, require: true, trim: true },
@@ -39,6 +40,11 @@ const userSchema = mongoose.Schema({
     }
 })
 
+userSchema.methods.generateAuthToken = async function () {
+    const user = this
+    const token = jwt.sign({_id: user.id.toString()}, 'thiswillgeneratetoken')
+    return token
+}
 userSchema.statics.findByCredentials = async (email, password) => {
     const user  = await User.findOne({email})
     if(!user) {
