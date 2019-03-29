@@ -37,14 +37,23 @@ const userSchema = mongoose.Schema({
                 throw new Error('Email is invalid')
             }
         }
-    }
+    },
+    tokens: [{
+        token: {
+            type: String,
+            require: true
+        }
+    }]
 })
 
 userSchema.methods.generateAuthToken = async function () {
     const user = this
     const token = jwt.sign({_id: user.id.toString()}, 'thiswillgeneratetoken')
+    user.tokens = user.tokens.concat({ token })
+    await user.save()
     return token
 }
+
 userSchema.statics.findByCredentials = async (email, password) => {
     const user  = await User.findOne({email})
     if(!user) {
