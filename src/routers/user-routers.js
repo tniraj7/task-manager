@@ -80,4 +80,12 @@ router.post('/users/login', async (req, res) => {
     }
 })
 
+router.post('/users/logout', async (req, res) {
+    try {
+
+    } catch (e) {
+        
+    }
+})
+
 module.exports = router
