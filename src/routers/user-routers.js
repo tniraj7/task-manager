@@ -86,7 +86,7 @@ router.post('/users/logout', async (req, res) => {
             return (token.token !== req.token)
         })
         await req.user.save()
-
+        
         res.send()
     } catch (e) {
         res.status(500).send()
