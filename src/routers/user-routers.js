@@ -103,5 +103,4 @@ router.post('/users/logoutAll', auth, async (req, res) => {
     }
 })
 
-
 module.exports = router
